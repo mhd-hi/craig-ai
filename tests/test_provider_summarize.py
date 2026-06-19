@@ -77,7 +77,7 @@ def test_provider_summarize_builds_correct_payload(tmp_path: Path) -> None:
 
     captured_request = None
 
-    def mock_urlopen(request, **kwargs):
+    def mock_urlopen(request, **_kwargs):
         nonlocal captured_request
         captured_request = request
         mock_response = MagicMock()
