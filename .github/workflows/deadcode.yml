@@ -25,7 +25,7 @@ jobs:
         run: yarn install --frozen-lockfile --production=false
 
       - name: Knip
-        run: npx --yes --package=knip@5.48.0 --package=typescript@5.9.3 knip --production
+        run: npx --yes knip@6.31.0 --production
 
   python:
     name: Python dead code
