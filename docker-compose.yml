@@ -66,6 +66,7 @@ services:
         condition: service_started
     volumes:
       - '${CRAIG_RECORDINGS_DIR:?Set CRAIG_RECORDINGS_DIR in .env}:/app/rec'
+      - './cook.sh:/app/cook.sh:ro'
 
   dashboard:
     image: ${CRAIG_DASHBOARD_IMAGE:-ghcr.io/mhd-hi/craig-ai/dashboard:latest}
