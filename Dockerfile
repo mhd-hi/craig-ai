@@ -118,6 +118,7 @@ COPY --from=builder /build/locale             locale
 # Prisma schema — needed by `prisma migrate deploy` in the migrate service
 COPY --from=builder /build/prisma             prisma
 # Cook scripts for post-processing recordings
+COPY --from=builder /build/cook.sh            cook.sh
 COPY --from=builder /build/cook               cook
 
 RUN mkdir -p rec && chown appuser:appgroup rec && chmod 755 rec
@@ -166,6 +167,7 @@ COPY --from=prod-modules /prod/apps/tasks/package.json     apps/tasks/package.js
 
 COPY --from=builder /build/apps/download/dist      apps/download/dist
 COPY --from=builder /build/apps/download/page/public apps/download/page/public
+COPY --from=builder /build/cook.sh             cook.sh
 COPY --from=builder /build/cook                cook
 
 RUN mkdir -p rec downloads && chown appuser:appgroup rec downloads

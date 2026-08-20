@@ -11,6 +11,11 @@
     "tests/smoke/tasks-config.js",
     "scripts/manageEntitlements.ts"
   ],
+  "ignoreFiles": [
+    "apps/bot/config/default.js",
+    "apps/tasks/config/_default.js",
+    "apps/tasks/config/default.js"
+  ],
   "ignoreBinaries": ["dotenv"],
   "ignoreDependencies": [
     "@clack/prompts",

@@ -44,6 +44,14 @@ services:
       db:
         condition: service_healthy
 
+  recordings-init:
+    image: ${CRAIG_BOT_IMAGE:-ghcr.io/mhd-hi/craig-ai/bot:latest}
+    user: "0:0"
+    command: ["sh", "-c", "chown appuser:appgroup /app/rec && chmod u+rwx /app/rec"]
+    restart: "no"
+    volumes:
+      - '${CRAIG_RECORDINGS_DIR:?Set CRAIG_RECORDINGS_DIR in .env}:/app/rec'
+
   bot:
     image: ${CRAIG_BOT_IMAGE:-ghcr.io/mhd-hi/craig-ai/bot:latest}
     restart: always
@@ -61,6 +69,8 @@ services:
       start_period: 60s
     depends_on:
       migrate:
+        condition: service_completed_successfully
+      recordings-init:
         condition: service_completed_successfully
       redis:
         condition: service_started
@@ -104,6 +114,8 @@ services:
       retries: 3
       start_period: 30s
     depends_on:
+      recordings-init:
+        condition: service_completed_successfully
       redis:
         condition: service_healthy
     volumes:
@@ -127,6 +139,8 @@ services:
       start_period: 30s
     depends_on:
       migrate:
+        condition: service_completed_successfully
+      recordings-init:
         condition: service_completed_successfully
       redis:
         condition: service_started
